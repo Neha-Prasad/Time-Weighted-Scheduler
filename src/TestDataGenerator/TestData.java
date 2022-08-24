@@ -4,11 +4,11 @@ import Utils.ICsvHeader;
 
 public class TestData implements ICsvHeader {
     private String Name;
-    private int ExecutionTimeInMins;
+    private int ExecutionTimeInSeconds;
 
-    public TestData(String name, int ExecutionTimeInMins) {
+    public TestData(String name, int ExecutionTimeInSeconds) {
         this.Name = name;
-        this.ExecutionTimeInMins = ExecutionTimeInMins;
+        this.ExecutionTimeInSeconds = ExecutionTimeInSeconds;
     }
 
     public String getName() {
@@ -16,16 +16,16 @@ public class TestData implements ICsvHeader {
     }
 
     public int getExecutionTime() {
-        return ExecutionTimeInMins;
+        return ExecutionTimeInSeconds;
     }
 
     @Override
     public String toString() {
-        return this.Name + "," + this.ExecutionTimeInMins;
+        return this.Name + "," + this.ExecutionTimeInSeconds;
     }
 
     @Override
     public String GetHeader() {
-        return "Name,ExecutionTimeInMins";
+        return "Name,ExecutionTimeInSeconds";
     }
 }
