@@ -24,13 +24,13 @@ public class TestDataGenerator {
         // Generate test data with larger execution time
         int numberOfLargeTests = (int) ((int) this.percentageOfLargerTests * .01 * this.numberOfTests);
         for (int i = 0;i < numberOfLargeTests; i++) {
-            testData.add(new TestData("TestCase" + i, Duration.ofMinutes(random.nextInt(11, 61))));
+            testData.add(new TestData("TestCase" + i, random.nextInt(11, 61)));
         }
 
         // Generate test data with smaller execution time
         int numberOfSmallTests = (int) ((int) this.percentageOfSmallerTests * .01 * this.numberOfTests);
         for (int i = 0;i < numberOfSmallTests; i++) {
-            testData.add(new TestData("TestCase" + i, Duration.ofMinutes(random.nextInt(1, 11))));
+            testData.add(new TestData("TestCase" + i, random.nextInt(1, 11)));
         }
 
         Collections.shuffle(testData);

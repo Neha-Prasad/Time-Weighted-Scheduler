@@ -1,21 +1,31 @@
 package TestDataGenerator;
 
-import java.time.Duration;
+import Utils.ICsvHeader;
 
-public class TestData {
+public class TestData implements ICsvHeader {
     private String Name;
-    private Duration ExecutionTime;
+    private int ExecutionTimeInMins;
 
-    public TestData(String name, Duration executionTime) {
-        Name = name;
-        ExecutionTime = executionTime;
+    public TestData(String name, int ExecutionTimeInMins) {
+        this.Name = name;
+        this.ExecutionTimeInMins = ExecutionTimeInMins;
     }
 
     public String getName() {
         return Name;
     }
 
-    public Duration getExecutionTime() {
-        return ExecutionTime;
+    public int getExecutionTime() {
+        return ExecutionTimeInMins;
+    }
+
+    @Override
+    public String toString() {
+        return this.Name + "," + this.ExecutionTimeInMins;
+    }
+
+    @Override
+    public String GetHeader() {
+        return "Name,ExecutionTimeInMins";
     }
 }

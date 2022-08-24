@@ -1,5 +1,7 @@
 import TestDataGenerator.TestDataGenerator;
 import TestDataGenerator.TestData;
+import Utils.CsvWriter;
+
 import java.util.List;
 
 public class Main {
@@ -15,9 +17,11 @@ public class Main {
             case 4: generator = new TestDataGenerator(25, 75); break;
             case 5: generator = new TestDataGenerator(75, 25); break;
         }
-
         List<TestData> testData = generator.Generate();
-        System.out.println(testData.size());
+
+        //Write test data being used to csv
+        CsvWriter<TestData> csvWriter = new CsvWriter<TestData>("TestData.csv");
+        csvWriter.Write(testData);
 
         // Act
 
