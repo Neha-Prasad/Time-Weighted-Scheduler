@@ -1,13 +1,16 @@
+import Algorithms.*;
 import TestDataGenerator.TestDataGenerator;
 import TestDataGenerator.TestData;
+import TestRunner.*;
 import Utils.CsvWriter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        // Arrange
+        System.out.println("Preparing Test Data");
         int option = ParseArguments(args);
         TestDataGenerator generator = null;
         switch (option) {
@@ -19,13 +22,24 @@ public class Main {
         }
         List<TestData> testData = generator.Generate();
 
-        //Write test data being used to csv
+        System.out.println("Writing test data being used to file - TestData.csv");
         CsvWriter<TestData> csvWriter = new CsvWriter<TestData>("TestData.csv");
         csvWriter.Write(testData);
 
-        // Act
+        System.out.println("Preparing algorithms to run");
+        List<IAlgorithm> algorithms = new ArrayList<>();
+        algorithms.add(new ShortestJobFirstPreemptive());
+        algorithms.add(new ShortestJobFirstNonPreemptive());
+        algorithms.add(new Genetic());
+        algorithms.add(new Wrangler());
 
-        // Assert
+        System.out.println("Preparing TestRunner and running tests");
+        TestRunner testRunner = new TestRunner(algorithms, testData);
+        List<TestResult> results = testRunner.RunTests();
+
+        System.out.println("Writing test results to file - TestResults.csv");
+        CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>("TestResults.csv");
+        csvResultsWriter.Write(results);
     }
 
     private static int ParseArguments(String[] args) {

@@ -1,6 +1,5 @@
 package TestDataGenerator;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,8 +8,8 @@ import java.util.Random;
 public class TestDataGenerator {
     private Random random;
     private int numberOfTests = 5000; // Keeping this constant to create level field
-    private int percentageOfLargerTests; // larger tests take more than 10 mins upto 60 mins
-    private int percentageOfSmallerTests; // smaller tests take less than 10 mins
+    private int percentageOfLargerTests; // larger tests take more than 10 seconds up to 60 seconds
+    private int percentageOfSmallerTests; // smaller tests take less than 10 seconds
 
     public TestDataGenerator(int percentageOfLargerTests, int percentageOfSmallerTests) {
         this.random = new Random();
