@@ -5,25 +5,20 @@ import TestRunner.*;
 import Utils.CsvWriter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) {
-        System.out.println("Preparing Test Data");
-        int option = ParseArguments(args);
-        TestDataGenerator generator = null;
-        switch (option) {
-            case 1: generator = new TestDataGenerator(0, 100); break;
-            case 2: generator = new TestDataGenerator(100, 0); break;
-            case 3: generator = new TestDataGenerator(50, 50); break;
-            case 4: generator = new TestDataGenerator(25, 75); break;
-            case 5: generator = new TestDataGenerator(75, 25); break;
-        }
+    public static void Run(int percentageOfLargerTests, int percentageOfSmallerTests) {
+        String suffix = "_%OfLargeTests_" + percentageOfLargerTests + "_%OfSmallTests_" + percentageOfSmallerTests;
+        System.out.println("Preparing Test Data with " + suffix);
+        TestDataGenerator generator = new TestDataGenerator(percentageOfLargerTests, percentageOfSmallerTests);;
         List<TestData> testData = generator.Generate();
 
-        System.out.println("Writing test data being used to file - TestData.csv");
-        CsvWriter<TestData> csvWriter = new CsvWriter<TestData>("TestData.csv");
+        System.out.println("Writing test data being used to file - TestData" + suffix + ".csv");
+        CsvWriter<TestData> csvWriter = new CsvWriter<TestData>("TestData" + suffix + ".csv");
         csvWriter.Write(testData);
 
         System.out.println("Preparing algorithms to run");
@@ -37,32 +32,22 @@ public class Main {
         TestRunner testRunner = new TestRunner(algorithms, testData);
         List<TestResult> results = testRunner.RunTests();
 
-        System.out.println("Writing test results to file - TestResults.csv");
-        CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>("TestResults.csv");
+        System.out.println("Writing test results to file - TestResults" + suffix + ".csv");
+        CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>("TestResults" + suffix + ".csv");
         csvResultsWriter.Write(results);
     }
 
-    private static int ParseArguments(String[] args) {
-        String usage = "1 -> Percentage of larger tests: 0, Percentage of Smaller tests: 100; "
-                + "2 -> Percentage of larger tests: 100, Percentage of Smaller tests: 0; "
-                + "3 -> Percentage of larger tests: 50, Percentage of Smaller tests: 50; "
-                + "4 -> Percentage of larger tests: 25, Percentage of Smaller tests: 75; "
-                + "5 -> Percentage of larger tests: 75, Percentage of Smaller tests: 25; ";
+    public static void main(String[] args) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>() {{
+            put(0, 100);
+            put(100, 0);
+            put(50, 50);
+            put(25, 75);
+            put(75, 25);
+        }};
 
-        if (args.length != 1 || args[0].isEmpty()) {
-            throw new IllegalArgumentException(usage);
-        }
-
-        try {
-            int option = Integer.parseInt(args[0]);
-            if (option < 1 || option >5 ) {
-                throw new Exception();
-            }
-            return option;
-        }
-        catch (Exception e)
-        {
-            throw new IllegalArgumentException(usage);
+        for(Map.Entry<Integer, Integer> set : map.entrySet()) {
+            Run(set.getKey(), set.getValue());
         }
     }
 }
