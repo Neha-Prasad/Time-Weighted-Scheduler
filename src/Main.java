@@ -25,11 +25,11 @@ public class Main {
         List<IAlgorithm> algorithms = new ArrayList<>();
         algorithms.add(new ShortestJobFirstPreemptive());
         algorithms.add(new ShortestJobFirstNonPreemptive());
-        algorithms.add(new Genetic());
-        algorithms.add(new Wrangler());
+        // algorithms.add(new Genetic());
+        // algorithms.add(new Wrangler());
 
-        System.out.println("Preparing TestRunner and running tests");
-        TestRunner testRunner = new TestRunner(algorithms, testData);
+        System.out.println("Preparing TestRunner and running tests with 100 HIL availability");
+        TestRunner testRunner = new TestRunner(algorithms, testData, 25);
         List<TestResult> results = testRunner.RunTests();
 
         System.out.println("Writing test results to file - TestResults" + suffix + ".csv");
