@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IAlgorithm {
     public String getName();
-    public void Run(List<TestData> tests);
+    public int Run(List<TestData> tests, int numberOfHils);
 }

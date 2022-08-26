@@ -11,7 +11,8 @@ public class Genetic implements IAlgorithm {
     }
 
     @Override
-    public void Run(List<TestData> tests) {
+    public int Run(List<TestData> tests, int numberOfHils) {
         // todo: Implement
+        return -1;
     }
 }

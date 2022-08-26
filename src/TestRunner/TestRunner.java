@@ -2,19 +2,19 @@ package TestRunner;
 
 import Algorithms.IAlgorithm;
 import TestDataGenerator.TestData;
-
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TestRunner {
     private List<IAlgorithm> algorithms;
     private List<TestData> testData;
+    private int numOfHils;
 
-    public TestRunner(List<IAlgorithm> algorithms, List<TestData> testData) {
+    public TestRunner(List<IAlgorithm> algorithms, List<TestData> testData, int numOfHils) {
         this.algorithms = algorithms;
         this.testData = testData;
+        this.numOfHils = numOfHils;
     }
 
     public List<TestResult> RunTests() {
@@ -28,9 +28,10 @@ public class TestRunner {
     }
 
     private long RunTest(IAlgorithm algorithm) {
-        Instant start = Instant.now();
-        algorithm.Run(this.testData);
-        Instant end = Instant.now();
-        return Duration.between(start, end).toSeconds();
+        ArrayList<TestData> tests = new ArrayList<>();
+        for (TestData test: this.testData) {
+            tests.add(new TestData(test.getName(), test.getArrivalTime(), test.getExecutionTime()));
+        }
+        return algorithm.Run(tests, this.numOfHils);
     }
 }
