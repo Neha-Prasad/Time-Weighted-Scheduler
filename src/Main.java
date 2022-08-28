@@ -1,4 +1,5 @@
 import Algorithms.*;
+import Algorithms.Genetic.Genetic;
 import TestDataGenerator.TestDataGenerator;
 import TestDataGenerator.TestData;
 import TestRunner.*;
@@ -25,7 +26,7 @@ public class Main {
         List<IAlgorithm> algorithms = new ArrayList<>();
         algorithms.add(new ShortestJobFirstPreemptive());
         algorithms.add(new ShortestJobFirstNonPreemptive());
-        // algorithms.add(new Genetic());
+        algorithms.add(new Genetic());
         // algorithms.add(new Wrangler());
 
         System.out.println("Preparing TestRunner and running tests with 100 HIL availability");
