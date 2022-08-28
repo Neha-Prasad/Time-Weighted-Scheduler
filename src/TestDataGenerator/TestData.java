@@ -2,6 +2,8 @@ package TestDataGenerator;
 
 import Utils.ICsvHeader;
 
+import java.util.Objects;
+
 public class TestData implements ICsvHeader {
     private String Name;
     private int ArrivalTime;
@@ -45,5 +47,18 @@ public class TestData implements ICsvHeader {
     @Override
     public String GetHeader() {
         return "Name,ExecutionTimeInSeconds";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TestData testData = (TestData) o;
+        return ArrivalTime == testData.ArrivalTime && ExecutionTimeInSeconds == testData.ExecutionTimeInSeconds && IsExecuting == testData.IsExecuting && Objects.equals(Name, testData.Name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Name, ArrivalTime, ExecutionTimeInSeconds, IsExecuting);
     }
 }
