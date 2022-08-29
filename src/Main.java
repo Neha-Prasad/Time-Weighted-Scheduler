@@ -1,5 +1,6 @@
 import Algorithms.*;
 import Algorithms.Genetic.Genetic;
+import Algorithms.Wrangler.Wrangler;
 import TestDataGenerator.TestDataGenerator;
 import TestDataGenerator.TestData;
 import TestRunner.*;
@@ -27,10 +28,10 @@ public class Main {
         algorithms.add(new ShortestJobFirstPreemptive());
         algorithms.add(new ShortestJobFirstNonPreemptive());
         algorithms.add(new Genetic());
-        // algorithms.add(new Wrangler());
+        algorithms.add(new Wrangler());
 
         System.out.println("Preparing TestRunner and running tests with 100 HIL availability");
-        TestRunner testRunner = new TestRunner(algorithms, testData, 25);
+        TestRunner testRunner = new TestRunner(algorithms, testData, 100);
         List<TestResult> results = testRunner.RunTests();
 
         System.out.println("Writing test results to file - TestResults" + suffix + ".csv");
