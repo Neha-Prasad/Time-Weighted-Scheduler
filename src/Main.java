@@ -30,13 +30,17 @@ public class Main {
         algorithms.add(new Genetic());
         algorithms.add(new Wrangler());
 
-        System.out.println("Preparing TestRunner and running tests with 100 HIL availability");
-        TestRunner testRunner = new TestRunner(algorithms, testData, 100);
-        List<TestResult> results = testRunner.RunTests();
+        int[] numberOfHils = new int[] {25, 50, 150, 500};
+        for (int num: numberOfHils) {
+            System.out.println("Preparing TestRunner and running tests with " + num + " HIL availability");
+            TestRunner testRunner = new TestRunner(algorithms, testData, num);
+            List<TestResult> results = testRunner.RunTests();
 
-        System.out.println("Writing test results to file - TestResults" + suffix + ".csv");
-        CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>("TestResults" + suffix + ".csv");
-        csvResultsWriter.Write(results);
+            String fileName = "TestResults" + suffix + "_NumOfHils_" + num + ".csv";
+            System.out.println("Writing test results to file" + fileName);
+            CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>(fileName);
+            csvResultsWriter.Write(results);
+        }
     }
 
     public static void main(String[] args) {

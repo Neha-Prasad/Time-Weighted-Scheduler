@@ -1,0 +1,5 @@
+AlgorithmName,RunTimeInSeconds
+ShortestJobFirstPreemptive,1079
+ShortestJobFirstNonPreemptive,1080
+Genetic,1077
+Wrangler,1080
