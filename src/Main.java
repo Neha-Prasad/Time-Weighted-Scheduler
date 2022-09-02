@@ -21,7 +21,7 @@ public class Main {
         List<TestData> testData = generator.Generate();
 
         System.out.println("Writing test data being used to file - TestData" + suffix + ".csv");
-        CsvWriter<TestData> csvWriter = new CsvWriter<TestData>("TestData" + suffix + ".csv");
+        CsvWriter<TestData> csvWriter = new CsvWriter<TestData>("TestData\\TestData" + suffix + ".csv");
         csvWriter.Write(testData);
 
         System.out.println("Preparing algorithms to run");
@@ -39,7 +39,7 @@ public class Main {
 
             String fileName = "TestResults" + suffix + "_NumOfHils_" + num;
             System.out.println("Writing test results to file" + fileName + ".csv");
-            CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>(fileName + ".csv");
+            CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>("TestResultsCsv\\" + fileName + ".csv");
             csvResultsWriter.Write(results);
 
             System.out.println("Writing chart to file" + fileName+ ".jpeg");
