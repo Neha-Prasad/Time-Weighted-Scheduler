@@ -28,7 +28,7 @@ public class ChartWriter {
                 true,
                 false);
 
-        File file = new File(name+ ".jpeg");
+        File file = new File("TestResultsCharts\\" + name+ ".jpeg");
         try {
             ChartUtils.saveChartAsJPEG(file, barChart, 640, 480);
             System.out.println("Chart saved at " + name+ ".jpeg");
