@@ -1,5 +1,5 @@
 AlgorithmName,RunTimeInSeconds
 ShortestJobFirstPreemptive,190
-ShortestJobFirstNonPreemptive,189
+ShortestJobFirstNonPreemptive,191
 Genetic,190
-Wrangler,189
+Wrangler,190

@@ -4,6 +4,7 @@ import Algorithms.Wrangler.Wrangler;
 import TestDataGenerator.TestDataGenerator;
 import TestDataGenerator.TestData;
 import TestRunner.*;
+import Utils.ChartWriter;
 import Utils.CsvWriter;
 
 import java.util.ArrayList;
@@ -36,10 +37,13 @@ public class Main {
             TestRunner testRunner = new TestRunner(algorithms, testData, num);
             List<TestResult> results = testRunner.RunTests();
 
-            String fileName = "TestResults" + suffix + "_NumOfHils_" + num + ".csv";
-            System.out.println("Writing test results to file" + fileName);
-            CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>(fileName);
+            String fileName = "TestResults" + suffix + "_NumOfHils_" + num;
+            System.out.println("Writing test results to file" + fileName + ".csv");
+            CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>(fileName + ".csv");
             csvResultsWriter.Write(results);
+
+            System.out.println("Writing chart to file" + fileName+ ".jpeg");
+            ChartWriter.Write(fileName, results);
         }
     }
 
