@@ -16,7 +16,7 @@ public class FitnessCalculator {
     public void setSolution(List<TestData> newSolution, int numOfAvailableHils) {
         this.solution = new ArrayList<>();
         for (TestData test: newSolution) {
-            this.solution.add(new TestData(test.getName(), test.getArrivalTime(), test.getExecutionTime()));
+            this.solution.add(new TestData(test));
         }
         this.numOfAvailableHils = numOfAvailableHils;
     }
@@ -24,7 +24,7 @@ public class FitnessCalculator {
     public int getFitness(Individual individual) {
         ArrayList<TestData> copy = new ArrayList<>();
         for (TestData test: individual.getGenes()) {
-            copy.add(new TestData(test.getName(), test.getArrivalTime(), test.getExecutionTime()));
+            copy.add(new TestData(test));
         }
         return this.GetFitness(copy);
     }
@@ -33,7 +33,7 @@ public class FitnessCalculator {
     public int getFitnessWithMinRunTime() {
         List<TestData> currentSolutionCopy = new ArrayList<>();
         for (TestData test: this.solution) {
-            currentSolutionCopy.add(new TestData(test.getName(), test.getArrivalTime(), test.getExecutionTime()));
+            currentSolutionCopy.add(new TestData(test));
         }
         return this.GetFitness(currentSolutionCopy);
     }

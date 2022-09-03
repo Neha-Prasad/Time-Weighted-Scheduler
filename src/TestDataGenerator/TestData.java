@@ -1,14 +1,18 @@
 package TestDataGenerator;
 
-import Utils.ICsvHeader;
-
 import java.util.Objects;
 
-public class TestData implements ICsvHeader {
+public class TestData {
     private String Name;
     private int ArrivalTime;
     private int ExecutionTimeInSeconds;
     private boolean IsExecuting;
+
+    public String getTestDistribution() {
+        return TestDistribution;
+    }
+
+    private String TestDistribution;
 
     public boolean isExecuting() {
         return IsExecuting;
@@ -22,11 +26,20 @@ public class TestData implements ICsvHeader {
         ExecutionTimeInSeconds = executionTimeInSeconds;
     }
 
-    public TestData(String name, int arrivalTime, int ExecutionTimeInSeconds) {
+    public TestData(String name, int arrivalTime, int ExecutionTimeInSeconds, String testDistribution) {
         this.Name = name;
         this.ExecutionTimeInSeconds = ExecutionTimeInSeconds;
         this.ArrivalTime = arrivalTime;
         this.IsExecuting = false;
+        this.TestDistribution = testDistribution;
+    }
+
+    public TestData(TestData testData) {
+        this.Name = testData.getName();
+        this.ExecutionTimeInSeconds = testData.getExecutionTime();
+        this.ArrivalTime = testData.getArrivalTime();
+        this.IsExecuting = testData.isExecuting();
+        this.TestDistribution = testData.getTestDistribution();
     }
 
     public String getName() {
@@ -41,12 +54,11 @@ public class TestData implements ICsvHeader {
 
     @Override
     public String toString() {
-        return this.Name + "," + this.ExecutionTimeInSeconds;
+        return this.Name + "," + this.ExecutionTimeInSeconds + "," + this.getTestDistribution();
     }
 
-    @Override
-    public String GetHeader() {
-        return "Name,ExecutionTimeInSeconds";
+    public static String GetHeader() {
+        return "Name,ExecutionTimeInSeconds,TestDistribution";
     }
 
     @Override

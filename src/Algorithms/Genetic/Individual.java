@@ -28,7 +28,7 @@ public class Individual {
     public void generateIndividual(List<TestData> testData) {
         this.genes = new ArrayList<>();
         for (TestData test: testData) {
-            this.genes.add(new TestData(test.getName(), test.getArrivalTime(), test.getExecutionTime()));
+            this.genes.add(new TestData(test));
         }
         Collections.shuffle(this.genes);
     }
