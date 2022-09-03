@@ -47,7 +47,7 @@ public class Genetic implements IAlgorithm {
         Individual newIndividual = new Individual(testData.size());
         // Loop through genes and place them at indices we get from cross over
         for (TestData test: testData) {
-            TestData copy = new TestData(test.getName(), test.getArrivalTime(), test.getExecutionTime());
+            TestData copy = new TestData(test);
             if (Math.random() <= uniformRate) {
                 int indexInIndividual1 = individual1.getGeneIndex(copy);
                 newIndividual.setGene(indexInIndividual1, copy);

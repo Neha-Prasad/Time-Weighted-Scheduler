@@ -1,12 +1,9 @@
 package Utils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.List;
 
-public class CsvWriter<T extends ICsvHeader> implements ICsvWriter<T> {
+public class CsvWriter<T> implements ICsvWriter<T> {
 
     private String fileName;
 
@@ -18,26 +15,33 @@ public class CsvWriter<T extends ICsvHeader> implements ICsvWriter<T> {
     @Override
     public boolean Write(List<T> listOfData) {
         try {
+            FileWriter fw = new FileWriter(this.fileName, true);
+            for (T t : listOfData) {
+                fw.write(t.toString());
+                fw.write(System.lineSeparator());
+            }
+            fw.flush();
+            fw.close();
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    public boolean WriteHeader(String header) {
+        try {
             File file = new File(this.fileName);
             if (file.exists()) {
                 file.delete();
             }
-            boolean headerWritten = false;
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.fileName), "UTF-8"));
-            for (T t : listOfData) {
-                if (!headerWritten) {
-                    bw.write(t.GetHeader());
-                    bw.newLine();
-                    headerWritten = true;
-                }
-                bw.write(t.toString());
-                bw.newLine();
-            }
-            bw.flush();
-            bw.close();
+            FileWriter fw = new FileWriter(this.fileName, false);
+            fw.write(header);
+            fw.write(System.lineSeparator());
+            fw.flush();
+            fw.close();
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }

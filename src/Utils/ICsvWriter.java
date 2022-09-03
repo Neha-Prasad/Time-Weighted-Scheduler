@@ -2,6 +2,6 @@ package Utils;
 
 import java.util.List;
 
-public interface ICsvWriter<T extends ICsvHeader> {
+public interface ICsvWriter<T> {
     public boolean Write(List<T> data);
 }

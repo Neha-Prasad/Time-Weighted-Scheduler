@@ -14,15 +14,13 @@ import java.util.Map;
 
 public class Main {
 
-    public static void Run(int percentageOfLargerTests, int percentageOfSmallerTests) {
+    public static void Run(int percentageOfLargerTests, int percentageOfSmallerTests,
+                           CsvWriter<TestData> csvTestDataWriter, CsvWriter<TestResult> csvResultsWriter) {
         String suffix = "_%OfLargeTests_" + percentageOfLargerTests + "_%OfSmallTests_" + percentageOfSmallerTests;
         System.out.println("Preparing Test Data with " + suffix);
         TestDataGenerator generator = new TestDataGenerator(percentageOfLargerTests, percentageOfSmallerTests);;
         List<TestData> testData = generator.Generate();
-
-        System.out.println("Writing test data being used to file - TestData" + suffix + ".csv");
-        CsvWriter<TestData> csvWriter = new CsvWriter<TestData>("TestData\\TestData" + suffix + ".csv");
-        csvWriter.Write(testData);
+        csvTestDataWriter.Write(testData);
 
         System.out.println("Preparing algorithms to run");
         List<IAlgorithm> algorithms = new ArrayList<>();
@@ -34,16 +32,9 @@ public class Main {
         int[] numberOfHils = new int[] {25, 50, 150, 500};
         for (int num: numberOfHils) {
             System.out.println("Preparing TestRunner and running tests with " + num + " HIL availability");
-            TestRunner testRunner = new TestRunner(algorithms, testData, num);
+            TestRunner testRunner = new TestRunner(algorithms, testData, num, percentageOfLargerTests, percentageOfSmallerTests);
             List<TestResult> results = testRunner.RunTests();
-
-            String fileName = "TestResults" + suffix + "_NumOfHils_" + num;
-            System.out.println("Writing test results to file" + fileName + ".csv");
-            CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>("TestResultsCsv\\" + fileName + ".csv");
             csvResultsWriter.Write(results);
-
-            System.out.println("Writing chart to file" + fileName+ ".jpeg");
-            ChartWriter.Write(fileName, results);
         }
     }
 
@@ -56,8 +47,14 @@ public class Main {
             put(75, 25);
         }};
 
+        CsvWriter<TestData> csvTestDataWriter = new CsvWriter<TestData>("TestData\\TestData.csv");
+        csvTestDataWriter.WriteHeader(TestData.GetHeader());
+        CsvWriter<TestResult> csvResultsWriter = new CsvWriter<TestResult>("TestResultsCsv\\TestResults.csv");
+        csvResultsWriter.WriteHeader(TestResult.GetHeader());
         for(Map.Entry<Integer, Integer> set : map.entrySet()) {
-            Run(set.getKey(), set.getValue());
+            Run(set.getKey(), set.getValue(), csvTestDataWriter, csvResultsWriter);
         }
+
+        ChartWriter.Write("TestResultsCsv\\TestResults.csv");
     }
 }

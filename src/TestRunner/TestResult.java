@@ -1,14 +1,25 @@
 package TestRunner;
 
-import Utils.ICsvHeader;
-
-public class TestResult implements ICsvHeader {
+public class TestResult {
     private String algorithmName;
     private long runTimeInSeconds;
+    private int numberOfHilsUsed;
 
-    public TestResult(String algorithmName, long runTimeinMins) {
+    public String getTestDistribution() {
+        return testDistribution;
+    }
+
+    private String testDistribution;
+
+    public TestResult(String algorithmName, long runTimeinMins, int numOfHils, String testDistribution) {
         this.algorithmName = algorithmName;
         this.runTimeInSeconds = runTimeinMins;
+        this.numberOfHilsUsed = numOfHils;
+        this.testDistribution = testDistribution;
+    }
+
+    public int getNumberOfHilsUsed() {
+        return numberOfHilsUsed;
     }
 
     public String getAlgorithmName() {
@@ -19,13 +30,12 @@ public class TestResult implements ICsvHeader {
         return runTimeInSeconds;
     }
 
-    @Override
-    public String GetHeader() {
-        return "AlgorithmName,RunTimeInSeconds";
+    public static String GetHeader() {
+        return "AlgorithmName,RunTimeInSeconds,NumOfHils,TestDistribution";
     }
 
     @Override
     public String toString() {
-        return algorithmName + "," + runTimeInSeconds;
+        return algorithmName + "," + runTimeInSeconds + "," + numberOfHilsUsed + "," + testDistribution;
     }
 }
